@@ -20,7 +20,6 @@ The path parameter should be a '.' separated sequences of keys that correspond t
 Example TOML file:
 
 ```toml
----
 title = "My TOML file"
 
 [info]
@@ -29,7 +28,6 @@ version = "1.0.1"
 [tools.poetry]
 version = "1.1.2"
 files = ['a.py', 'b.py']
----
 ```
 
 Read standard keys:
