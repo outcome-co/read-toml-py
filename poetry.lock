@@ -98,7 +98,7 @@ python-versions = ">=3.6.1"
 version = "3.1.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Composable command line interface toolkit"
 name = "click"
 optional = false
@@ -1012,7 +1012,7 @@ docs = ["sphinx", "zope.component", "sybil", "twisted", "mock", "django (<2)", "
 test = ["pytest (>=3.6)", "pytest-cov", "pytest-django", "zope.component", "sybil", "twisted", "mock", "django (<2)", "django"]
 
 [[package]]
-category = "dev"
+category = "main"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -1115,7 +1115,7 @@ python-versions = "*"
 version = "0.3"
 
 [metadata]
-content-hash = "240ad2e777c29d346264d80c5e5fec5b130d0cec4c2dfcee31442f045816bec6"
+content-hash = "c8ffc2dc6a66e3fd1f2e6db5953defa024ae7bbdc2f32150330ef2c67b027826"
 python-versions = "^3.8"
 
 [metadata.files]
