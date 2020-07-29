@@ -1,8 +1,7 @@
 from unittest.mock import Mock, call, patch
 
-import toml
 import pytest
-
+import toml
 from click.testing import CliRunner
 from outcome.read_toml import bin as read_toml
 
@@ -54,7 +53,6 @@ def isolated_filesystem_runner(sample_toml):
 
 
 class TestCommand:
-
     @patch('outcome.read_toml.bin.read', autospec=True)
     @patch('outcome.read_toml.bin.output', autospec=True)
     def test_call(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
@@ -69,5 +67,3 @@ class TestCommand:
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code != 0
- 
-
