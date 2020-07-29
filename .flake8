@@ -30,15 +30,18 @@ ignore = W503, # Allow line break before binary operator
          WPS301, # Allow dotted raw imports (eg. folder.module)
          WPS305, # Allow `f` strings
          WPS329, # Allow 'meaningless' except cases
+         WPS348, # Allow lines starting with dots
          WPS404, # Allow 'complex' default values (eg. var=Depends(function))
-         WPS420 # Allows keywords `global` and `pass`
+         WPS420, # Allows keywords `global` and `pass`
+         WPS421, # Allow function call: dir
          WPS428, # Allow statements with no effect (like """)
          WPS430, # Allow nested functions
          WPS431, # Allow nested classes
          WPS437, # Allow usage of protected attribute : _state
          WPS604, # Allow usage of `pass` or `global var` inside classes
+         WPS403, # noqa overused
 
-per-file-ignores = test/**.py: WPS442, WPS226, WPS219, S101, D100, WPS211, WPS609, WPS118
+per-file-ignores = test/**.py: WPS442, WPS226, WPS219, S101, D100, WPS211, WPS609, WPS118, WPS201, WPS214, WPS204
 # WPS442, # pytest fixtures require shadowing
 # WPS211, # Too many arguments
 # WPS226, # Allow several usage of string constants (> 3)
@@ -47,6 +50,9 @@ per-file-ignores = test/**.py: WPS442, WPS226, WPS219, S101, D100, WPS211, WPS60
 # D100, # Don't need docstrings in tests
 # WPS609, # Direct magic method usage
 # WPS118, # Name too long
+# WPS201, # Too many imports
+# WPS214, # Allow more than 7 methods within class
+# WPS204, # Allos overused expressions > 7
 
 
 

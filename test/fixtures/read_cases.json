@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Basic",
+        "key": "title",
+        "value": "My TOML file"
+    },
+    {
+        "name": "Basic Nested",
+        "key": "info.version",
+        "value": "1.0.1"
+    },
+    {
+        "name": "More Nested",
+        "key": "tools.poetry.version",
+        "value": "1.1.2"
+    },
+    {
+        "name": "Array",
+        "key": "tools.poetry.files",
+        "value": ["a.py", "b.py"]
+    },
+    {
+        "name": "Array Index",
+        "key": "tools.poetry.files[0]",
+        "value": "a.py"
+    },
+    {
+        "name": "Array Index 2",
+        "key": "tools.poetry.files[1]",
+        "value": "b.py"
+    },
+    {
+        "name": "Table",
+        "key": "test.table[0].name",
+        "value": "name_1"
+    },
+    {
+        "name": "Single length array",
+        "key": "tools.poetry.reqs",
+        "value": "python"
+    }
+]

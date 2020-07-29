@@ -33,8 +33,12 @@ dev-setup: install-build-system ## Install the dependencies for dev environments
 	./pre-commit.sh
 	LDFLAGS="-L$$(brew --prefix openssl)/lib" poetry install
 
-production-setup: install-build-system ## Install the dependencies for production environments
-	poetry config virtualenvs.create false
-	poetry install --no-dev --no-interaction --no-ansi
+.PHONY: generate-production-requirements generate-dev-requirements
+
+generate-production-requirements: ## Generate a requirements.txt with production dependencies
+	poetry export -f requirements.txt -o requirements.txt --without-hashes
+
+generate-dev-requirements: ## Generate a requirements.txt with all dependencies
+	poetry export -f requirements.txt -o requirements.txt --without-hashes --dev
 
 endif

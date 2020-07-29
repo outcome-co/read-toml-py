@@ -17,10 +17,13 @@ python = "^3.8"
 [tool.poetry.dev-dependencies]
 outcome-devkit = "^3.0.1"
 
+[tool.poetry.scripts]
+read-toml = 'outcome.read_toml.bin:main'
+
 [tool.coverage.run]
 branch = true
 data_file = 'coverage/data'
-source = ['src']
+source = ['src/outcome/read_toml']
 omit = [
    "test/*"
 ]
