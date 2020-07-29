@@ -1,5 +1,8 @@
 from unittest.mock import Mock, call, patch
 
+import pytest
+import toml
+from click.testing import CliRunner
 from outcome.read_toml import bin as read_toml
 
 
@@ -36,3 +39,31 @@ class TestOutput:
     def test_without_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'])
         mock_say.assert_called_once_with(output_case['value'])
+
+
+@pytest.fixture
+def isolated_filesystem_runner(sample_toml):
+    runner = CliRunner()
+
+    with runner.isolated_filesystem():
+        with open('sample.toml', 'w') as handle:
+            toml.dump(sample_toml, handle)
+
+        yield runner
+
+
+class TestCommand:
+    @patch('outcome.read_toml.bin.read', autospec=True)
+    @patch('outcome.read_toml.bin.output', autospec=True)
+    def test_call(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+        mock_read.return_value = '123'
+        result = isolated_filesystem_runner.invoke(read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key'])
+        assert result.exit_code == 0
+        mock_output.assert_called_once_with('my_key', '123')
+
+    @patch('outcome.read_toml.bin.read', autospec=True)
+    @patch('outcome.read_toml.bin.output', autospec=True)
+    def test_call_failure(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+        mock_read.side_effect = KeyError('my_key')
+        result = isolated_filesystem_runner.invoke(read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key'])
+        assert result.exit_code != 0

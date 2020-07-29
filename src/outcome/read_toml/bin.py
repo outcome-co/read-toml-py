@@ -12,7 +12,7 @@ from outcome.read_toml.lib import read  # noqa: WPS347
 @click.command()
 @click.option('--path', help='The path to the TOML file', required=True, type=click.File('r'))
 @click.option('--key', help='The path to read from the TOML file', required=True)
-def read_toml(path, key: str):  # pragma: no cover
+def read_toml(path, key: str):
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -49,7 +49,7 @@ def read_toml(path, key: str):  # pragma: no cover
         key (str): The path to the key to read.
     """
     try:
-        output(read(path, key))
+        output(key, read(path, key))
     except KeyError as ex:
         fail(str(ex))
 
