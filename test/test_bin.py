@@ -82,7 +82,6 @@
 #     return request.param
 
 
-
 # @patch('bin.read_toml.read_path', autospec=True)
 # @patch('bin.read_toml.output', autospec=True)
 # @patch('bin.read_toml.toml.loads', autospec=True)

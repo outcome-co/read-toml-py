@@ -1,8 +1,8 @@
-import pytest
-import toml
 import json
 from pathlib import Path
 
+import pytest
+import toml
 
 sample_file = Path(Path(__file__).parent, 'fixtures', 'sample.toml')
 read_cases_file = Path(Path(__file__).parent, 'fixtures', 'read_cases.json')

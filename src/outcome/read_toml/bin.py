@@ -6,7 +6,6 @@ import os
 import sys
 
 import click
-
 from outcome.read_toml.lib import read
 
 

@@ -1,11 +1,12 @@
 """A utility to read values from TOML files."""
 
-from typing import IO, Dict, Any, Optional, Tuple
-
 import re
+from typing import IO, Any, Dict, Optional, Tuple
+
 import toml
 
 _scalar_types = [int, str, bool, float]
+
 
 def read(path: IO[str], key: str) -> str:
     parsed_toml = toml.loads(path.read())
@@ -44,7 +45,7 @@ def read_key(node: Any, key: str) -> Any:
     # then we want to retrieve the correct map in the list of maps
     key_and_index = get_key_and_index(key)
 
-    if key_and_index:   
+    if key_and_index:
         key, index = key_and_index
         if not isinstance(node[key], list):
             # This should always be a list when an index is specified
@@ -66,6 +67,6 @@ def get_key_and_index(key: str) -> Optional[Tuple[str, int]]:
     if match:
         index = int(match.group(1))
         # Get the key without index
-        key_without_index = key[:key.find('[')]
+        key_without_index = key[: key.find('[')]
         return (key_without_index, index)
     return None
