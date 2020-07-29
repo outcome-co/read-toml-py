@@ -20,8 +20,7 @@ def read(path: IO[str], key: str) -> str:
         return ' '.join(map(str, value))
 
     # We could theoretically just print out the dict, but we'll fail instead
-    else:
-        raise KeyError(key)
+    raise KeyError(key)
 
 
 def read_path(node: Dict[str, Any], key: str) -> Any:

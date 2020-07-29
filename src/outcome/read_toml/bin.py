@@ -6,7 +6,7 @@ import os
 import sys
 
 import click
-from outcome.read_toml.lib import read
+from outcome.read_toml.lib import read  # noqa: WPS347
 
 
 @click.command()
@@ -51,7 +51,7 @@ def read_toml(path, key: str):  # pragma: no cover
     try:
         output(read(path, key))
     except KeyError as ex:
-        fail(ex.message)
+        fail(str(ex))
 
 
 def output(key: str, value: str):
