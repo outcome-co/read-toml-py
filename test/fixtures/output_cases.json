@@ -1,0 +1,12 @@
+[
+    {
+        "key": "key",
+        "value": "value",
+        "github_value": "::set-output name=key::value"
+    },
+    {
+        "key": "nested.key",
+        "value": "value",
+        "github_value": "::set-output name=nested_key::value"
+    }
+]
