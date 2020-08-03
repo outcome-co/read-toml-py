@@ -63,7 +63,7 @@ You can check if a key exists:
 read-toml --path my_file.toml --key title --check-only 
 # 1
 
-read-toml --path my_file.toml --key unknown_key
+read-toml --path my_file.toml --key unknown_key --check-only
 # 0
 ```
 
