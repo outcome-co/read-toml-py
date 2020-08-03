@@ -60,14 +60,14 @@ def read_toml(path, key: str, check_only: bool):
         output(key, read(path, key), check_only=check_only)
     except KeyError as ex:
         if check_only:
-            say(1)
+            say(0)
         else:
             fail(str(ex))
 
 
 def output(key: str, value: str, check_only: bool = False):
     if check_only:
-        say(0)
+        say(1)
     elif os.environ.get('GITHUB_ACTIONS', False):
         action_key = key.replace('.', '_')
         say(f'::set-output name={action_key}::{value}')

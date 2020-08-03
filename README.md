@@ -61,10 +61,10 @@ You can check if a key exists:
 
 ```sh
 read-toml --path my_file.toml --key title --check-only 
-# 0
+# 1
 
 read-toml --path my_file.toml --key unknown_key
-# 1
+# 0
 ```
 
 ## Development

@@ -43,7 +43,7 @@ class TestOutput:
     @patch.dict('os.environ', {}, clear=True)
     def test_check_only_without_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True)
-        mock_say.assert_called_once_with(0)
+        mock_say.assert_called_once_with(1)
 
 
 @pytest.fixture
@@ -91,4 +91,4 @@ class TestCommand:
             read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_say.assert_called_once_with(1)
+        mock_say.assert_called_once_with(0)
