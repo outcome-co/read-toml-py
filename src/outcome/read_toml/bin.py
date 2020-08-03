@@ -47,8 +47,8 @@ def read_toml(path, key: str, check_only: bool):
 
     Check if key exists:
 
-    read_toml.py --path my_file.toml --key tools --check-only -> 0 if key exists
-    read_toml.py --path my_file.toml --key tools --check-only -> 1 if key does not exists
+    read_toml.py --path my_file.toml --key tools --check-only -> 1 if key exists
+    read_toml.py --path my_file.toml --key tools --check-only -> 0 if key does not exist
 
     Args:
         path (str): The path to the file.
