@@ -57,6 +57,16 @@ read_toml.py --path my_file.toml --key tools
 # KeyError
 ```
 
+You can check if a key exists:
+
+```sh
+read-toml --path my_file.toml --key title --check-only 
+# 1
+
+read-toml --path my_file.toml --key unknown_key --check-only
+# 0
+```
+
 ## Development
 
 Remember to run `./pre-commit.sh` when you clone the repository.
