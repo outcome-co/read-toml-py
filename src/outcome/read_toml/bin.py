@@ -2,7 +2,6 @@
 
 """A utility to read values from TOML files."""
 
-import os
 import sys
 
 import click

@@ -26,7 +26,7 @@ class TestOutput:
     def test_check_only_without_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True)
         mock_say.assert_called_once_with(1)
-    
+
     def test_check_only_with_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True, github_actions=True)
         mock_say.assert_called_once_with(1)
@@ -61,7 +61,7 @@ class TestCommand:
         )
         assert result.exit_code == 0
         mock_output.assert_called_once_with('my_key', '123', check_only=True, github_actions=False)
-    
+
     @patch('outcome.read_toml.bin.read', autospec=True)
     @patch('outcome.read_toml.bin.output', autospec=True)
     def test_call_with_github_actions(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
