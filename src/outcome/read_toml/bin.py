@@ -84,19 +84,5 @@ def say(*args, **kwargs):  # pragma: no cover
     print(*args, **kwargs)  # noqa: T001
 
 
-def switch_working_directory():
-    # If we're in a Github Action, the GITHUB_WORKSPACE variable
-    # will be set, and corresponds to the directory mounted as a volume
-    # in the Docker.
-    #
-    # Since we're likely to be working on the files in the GITHUB_WORKSPACE
-    # we automatically change directories
-    workspace = os.environ.get('GITHUB_WORKSPACE')
-    if workspace:
-        say(f'Switching to Github Workspace: {workspace}')
-        os.chdir(workspace)
-
-
 def main():
-    switch_working_directory()
     read_toml()

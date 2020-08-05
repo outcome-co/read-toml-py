@@ -6,26 +6,11 @@ from click.testing import CliRunner
 from outcome.read_toml import bin as read_toml
 
 
-def test_switch_called_before_read():
+def test_read_called_in_main():
     m = Mock()
     with patch('outcome.read_toml.bin.read_toml', new=m.read):
-        with patch('outcome.read_toml.bin.switch_working_directory', new=m.switch):
-            read_toml.main()
-            assert m.mock_calls == [call.switch(), call.read()]
-
-
-@patch('outcome.read_toml.bin.say', autospec=True)
-@patch('outcome.read_toml.bin.os.chdir', autospec=True)
-class TestSwitch:
-    @patch.dict('os.environ', {'GITHUB_WORKSPACE': '/workspace'})
-    def test_switch(self, mock_chdir: Mock, mock_say: Mock):
-        read_toml.switch_working_directory()
-        mock_chdir.assert_called_once_with('/workspace')
-
-    @patch.dict('os.environ', {}, clear=True)
-    def test_no_switch(self, mock_chdir: Mock, mock_say: Mock):
-        read_toml.switch_working_directory()
-        mock_chdir.assert_not_called()
+        read_toml.main()
+        assert m.mock_calls == [call.read()]
 
 
 @patch('outcome.read_toml.bin.say')
