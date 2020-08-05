@@ -2,7 +2,6 @@
 
 """A utility to read values from TOML files."""
 
-import os
 import sys
 
 import click
@@ -13,7 +12,8 @@ from outcome.read_toml.lib import read  # noqa: WPS347
 @click.option('--path', help='The path to the TOML file', required=True, type=click.File('r'))
 @click.option('--key', help='The path to read from the TOML file', required=True)
 @click.option('--check-only', help='If present, only checks if the key is present in the TOML file', is_flag=True, default=False)
-def read_toml(path, key: str, check_only: bool):
+@click.option('--github-actions', help='If present, formats the output for github actions', is_flag=True, default=False)
+def read_toml(path, key: str, check_only: bool, github_actions: bool):
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -54,10 +54,11 @@ def read_toml(path, key: str, check_only: bool):
         path (str): The path to the file.
         key (str): The path to the key to read.
         check_only (bool): If True, only checks if key exists
+        github_actions (bool): If True, formats output for Github actions
 
     """
     try:
-        output(key, read(path, key), check_only=check_only)
+        output(key, read(path, key), check_only=check_only, github_actions=github_actions)
     except KeyError as ex:
         if check_only:
             say(0)
@@ -65,10 +66,10 @@ def read_toml(path, key: str, check_only: bool):
             fail(str(ex))
 
 
-def output(key: str, value: str, check_only: bool = False):
+def output(key: str, value: str, check_only: bool = False, github_actions: bool = False):
     if check_only:
         say(1)
-    elif os.environ.get('GITHUB_ACTIONS', False):
+    elif github_actions:
         action_key = key.replace('.', '_')
         say(f'::set-output name={action_key}::{value}')
     else:

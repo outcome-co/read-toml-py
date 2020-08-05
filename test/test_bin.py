@@ -15,19 +15,20 @@ def test_read_called_in_main():
 
 @patch('outcome.read_toml.bin.say')
 class TestOutput:
-    @patch.dict('os.environ', {'GITHUB_ACTIONS': 'true'})
     def test_with_github(self, mock_say: Mock, output_case):
-        read_toml.output(output_case['key'], output_case['value'])
+        read_toml.output(output_case['key'], output_case['value'], github_actions=True)
         mock_say.assert_called_once_with(output_case['github_value'])
 
-    @patch.dict('os.environ', {}, clear=True)
     def test_without_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'])
         mock_say.assert_called_once_with(output_case['value'])
 
-    @patch.dict('os.environ', {}, clear=True)
     def test_check_only_without_github(self, mock_say: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True)
+        mock_say.assert_called_once_with(1)
+
+    def test_check_only_with_github(self, mock_say: Mock, output_case):
+        read_toml.output(output_case['key'], output_case['value'], check_only=True, github_actions=True)
         mock_say.assert_called_once_with(1)
 
 
@@ -49,7 +50,7 @@ class TestCommand:
         mock_read.return_value = '123'
         result = isolated_filesystem_runner.invoke(read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', '123', check_only=False)
+        mock_output.assert_called_once_with('my_key', '123', check_only=False, github_actions=False)
 
     @patch('outcome.read_toml.bin.read', autospec=True)
     @patch('outcome.read_toml.bin.output', autospec=True)
@@ -59,7 +60,17 @@ class TestCommand:
             read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', '123', check_only=True)
+        mock_output.assert_called_once_with('my_key', '123', check_only=True, github_actions=False)
+
+    @patch('outcome.read_toml.bin.read', autospec=True)
+    @patch('outcome.read_toml.bin.output', autospec=True)
+    def test_call_with_github_actions(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+        mock_read.return_value = '123'
+        result = isolated_filesystem_runner.invoke(
+            read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--github-actions'],
+        )
+        assert result.exit_code == 0
+        mock_output.assert_called_once_with('my_key', '123', check_only=False, github_actions=True)
 
     @patch('outcome.read_toml.bin.read', autospec=True)
     @patch('outcome.read_toml.bin.output', autospec=True)
