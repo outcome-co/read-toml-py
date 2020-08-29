@@ -64,7 +64,7 @@ def read_toml(path, key: str, check_only: bool, github_actions: bool, default: O
         output(key, read(path, key), check_only=check_only, github_actions=github_actions)
     except KeyError as ex:
         if check_only:
-            console.write(0)
+            console.write('0')
         elif default:
             console.write(default)
         else:
@@ -73,7 +73,7 @@ def read_toml(path, key: str, check_only: bool, github_actions: bool, default: O
 
 def output(key: str, value: str, check_only: bool = False, github_actions: bool = False):
     if check_only:
-        console.write(1)
+        console.write('1')
     elif github_actions:
         action_key = key.replace('.', '_')
         console.write(f'::set-output name={action_key}::{value}')
