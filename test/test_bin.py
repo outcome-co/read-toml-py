@@ -88,3 +88,13 @@ class TestCommand:
         )
         assert result.exit_code == 0
         mock_write.assert_called_once_with(0)
+
+    @patch('outcome.read_toml.bin.read', autospec=True)
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_failure_default(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
+        mock_read.side_effect = KeyError('my_key')
+        result = isolated_filesystem_runner.invoke(
+            read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--default', 'foo'],
+        )
+        assert result.exit_code == 0
+        mock_write.assert_called_once_with('foo')
