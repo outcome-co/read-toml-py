@@ -13,23 +13,23 @@ def test_read_called_in_main():
         assert m.mock_calls == [call.read()]
 
 
-@patch('outcome.read_toml.bin.say')
+@patch('outcome.read_toml.bin.console.write')
 class TestOutput:
-    def test_with_github(self, mock_say: Mock, output_case):
+    def test_with_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], github_actions=True)
-        mock_say.assert_called_once_with(output_case['github_value'])
+        mock_write.assert_called_once_with(output_case['github_value'])
 
-    def test_without_github(self, mock_say: Mock, output_case):
+    def test_without_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'])
-        mock_say.assert_called_once_with(output_case['value'])
+        mock_write.assert_called_once_with(output_case['value'])
 
-    def test_check_only_without_github(self, mock_say: Mock, output_case):
+    def test_check_only_without_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True)
-        mock_say.assert_called_once_with(1)
+        mock_write.assert_called_once_with(1)
 
-    def test_check_only_with_github(self, mock_say: Mock, output_case):
+    def test_check_only_with_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True, github_actions=True)
-        mock_say.assert_called_once_with(1)
+        mock_write.assert_called_once_with(1)
 
 
 @pytest.fixture
@@ -80,11 +80,11 @@ class TestCommand:
         assert result.exit_code != 0
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.say', autospec=True)
-    def test_call_failure_only_check(self, mock_say: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_failure_only_check(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(
             read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_say.assert_called_once_with(0)
+        mock_write.assert_called_once_with(0)
