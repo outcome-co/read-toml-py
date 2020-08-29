@@ -3,11 +3,10 @@
 """A utility to read values from TOML files."""
 
 import sys
-
 from typing import Optional
 
 import click
-from outcome.read_toml.lib import read
+from outcome.read_toml.lib import read  # noqa: WPS347
 from outcome.utils import console
 
 
@@ -17,7 +16,7 @@ from outcome.utils import console
 @click.option('--default', help='The value to provide if the key is missing', required=False)
 @click.option('--check-only', help='If present, only checks if the key is present in the TOML file', is_flag=True, default=False)
 @click.option('--github-actions', help='If present, formats the output for github actions', is_flag=True, default=False)
-def read_toml(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):
+def read_toml(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -59,7 +58,7 @@ def read_toml(path, key: str, check_only: bool, github_actions: bool, default: O
         key (str): The path to the key to read.
         check_only (bool): If True, only checks if key exists
         github_actions (bool): If True, formats output for Github actions
-
+        default (str, optional): If the key doesn't exist, print this value.
     """
     try:
         output(key, read(path, key), check_only=check_only, github_actions=github_actions)
@@ -85,6 +84,7 @@ def output(key: str, value: str, check_only: bool = False, github_actions: bool 
 def fail(key: str):  # pragma: no cover
     console.error(f'Invalid key: {key}')
     sys.exit(-1)
+
 
 def main():
     read_toml()
