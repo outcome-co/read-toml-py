@@ -25,11 +25,11 @@ class TestOutput:
 
     def test_check_only_without_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True)
-        mock_write.assert_called_once_with(1)
+        mock_write.assert_called_once_with('1')
 
     def test_check_only_with_github(self, mock_write: Mock, output_case):
         read_toml.output(output_case['key'], output_case['value'], check_only=True, github_actions=True)
-        mock_write.assert_called_once_with(1)
+        mock_write.assert_called_once_with('1')
 
 
 @pytest.fixture
@@ -87,7 +87,7 @@ class TestCommand:
             read_toml.read_toml, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_write.assert_called_once_with(0)
+        mock_write.assert_called_once_with('0')
 
     @patch('outcome.read_toml.bin.read', autospec=True)
     @patch('outcome.read_toml.bin.console.write', autospec=True)
