@@ -65,7 +65,7 @@ def read_toml(path, key: str, check_only: bool, github_actions: bool, default: O
     except KeyError as ex:
         if check_only:
             console.write('0')
-        elif default:
+        elif default is not None:
             console.write(default)
         else:
             fail(str(ex))
