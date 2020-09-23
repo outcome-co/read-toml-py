@@ -6,18 +6,23 @@ on:
       - 'v*'
 
 env:
-  POETRY_CACHE_DIR: ".cache/poetry"
-  PIP_CACHE_DIR: ".cache/pip"
+  # These environment variables are automatically recognized by poetry and pip
+  # They allow us to specifically control where the cache is kept, so we can use 
+  # the actions/cache@v2 action to store downloaded dependencies between multiple runs
+  POETRY_CACHE_DIR: .cache/poetry
+  PIP_CACHE_DIR: .cache/pip
 
 jobs:
-    publish:
+   publish:
       name: "Publish package"
       runs-on: ubuntu-latest
+
+      # Only run this if we're in master
       if: github.event.base_ref == 'refs/heads/master'
 
       steps:
         - name: Checkout code
-          uses: actions/checkout@v2
+          uses: actions/checkout@v2.3.2
 
         - name: "Get python version"
           uses: outcome-co/action-read-toml@master
@@ -32,18 +37,25 @@ jobs:
             python-version: ${{ steps.python_version.outputs.tool_poetry_dependencies_python }}
 
         - name: Configure pip cache
-          uses: actions/cache@v1
+          uses: actions/cache@v2
           with:
             path: ${{ env.PIP_CACHE_DIR }}
+            # Pip is only used to install poetry, and the poetry version 
+            # is stored in pyproject.toml
             key: pip-${{ hashFiles('**/poetry.lock') }}
+            restore-keys: |
+              pip
 
         - name: Configure poetry cache
-          uses: actions/cache@v1
+          uses: actions/cache@v2
           with:
             path: ${{ env.POETRY_CACHE_DIR }}
+            # All of the dependencies are stored in pyproject.toml
             key: poetry-${{ hashFiles('**/poetry.lock') }}
+            restore-keys: |
+              poetry
 
-        - name: "Install dev dependencies"
+        - name: "Install build system"
           run: make install-build-system
 
         - name: "Publish package"
