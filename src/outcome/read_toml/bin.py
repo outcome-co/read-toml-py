@@ -3,7 +3,9 @@
 """A utility to read values from TOML files."""
 
 import sys
-from typing import IO, Optional
+from typing import IO, Optional, Union
+
+from pathlib import Path
 
 import click
 from outcome.read_toml.lib import read  # noqa: WPS347
@@ -64,10 +66,15 @@ def read_toml_cli(path: IO[str], key: str, check_only: bool, github_actions: boo
 
 
 def read_toml(
-    path: IO[str], key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
+    path: Union[IO[str], str, Path], key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
 ):  # noqa: WPS216
     try:
-        value = read(path, key)
+        if isinstance(path, (str, Path)):
+            with open(path, 'r') as path_handle:
+                value = read(path_handle, key)
+        else:
+            value = read(path, key)
+
         if check_only:
             value = '1'
     except KeyError as ex:
