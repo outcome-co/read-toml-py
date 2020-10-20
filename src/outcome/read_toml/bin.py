@@ -16,8 +16,7 @@ from outcome.utils import console
 @click.option('--key', help='The path to read from the TOML file', required=True)
 @click.option('--default', help='The value to provide if the key is missing', required=False)
 @click.option('--check-only', help='If present, only checks if the key is present in the TOML file', is_flag=True, default=False)
-@click.option('--github-actions', help='If present, formats the output for github actions', is_flag=True, default=False)
-def read_toml_cli(path: IO[str], key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
+def read_toml_cli(path: IO[str], key: str, check_only: bool, default: Optional[str] = None):
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -58,19 +57,17 @@ def read_toml_cli(path: IO[str], key: str, check_only: bool, github_actions: boo
         path (str): The path to the file.
         key (str): The path to the key to read.
         check_only (bool): If True, only checks if key exists
-        github_actions (bool): If True, formats output for Github actions
         default (str, optional): If the key doesn't exist, print this value.
     """
-    read_toml(path, key, check_only, github_actions, default)
+    console.write(read_toml(path, key, check_only, default))
 
 
 def read_toml(
     path: Union[IO[str], str, Path],
     key: str,
     check_only: bool = False,
-    github_actions: bool = False,
     default: Optional[str] = None,
-):  # noqa: WPS216
+):
     try:
         if isinstance(path, (str, Path)):
             with open(path, 'r') as path_handle:
@@ -88,15 +85,7 @@ def read_toml(
         else:
             fail(str(ex))
 
-    output(key, value, github_actions=github_actions)
-
-
-def output(key: str, value: str, github_actions: bool = False):
-    if github_actions:
-        action_key = key.replace('.', '_')
-        console.write(f'::set-output name={action_key}::{value}')
-    else:
-        console.write(value)
+    return value  # noqa: R504
 
 
 def fail(key: str):  # pragma: no cover
