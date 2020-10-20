@@ -3,7 +3,7 @@
 """A utility to read values from TOML files."""
 
 import sys
-from typing import Optional, IO
+from typing import IO, Optional
 
 import click
 from outcome.read_toml.lib import read  # noqa: WPS347
