@@ -63,10 +63,7 @@ def read_toml_cli(path: IO[str], key: str, check_only: bool, default: Optional[s
 
 
 def read_toml(
-    path: Union[IO[str], str, Path],
-    key: str,
-    check_only: bool = False,
-    default: Optional[str] = None,
+    path: Union[IO[str], str, Path], key: str, check_only: bool = False, default: Optional[str] = None,
 ):
     try:
         if isinstance(path, (str, Path)):

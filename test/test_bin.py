@@ -77,9 +77,7 @@ class TestCommand:
     @patch('outcome.read_toml.bin.console.write', autospec=True)
     def test_call_with_github_actions(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.return_value = '123'
-        result = isolated_filesystem_runner.invoke(
-            read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key'],
-        )
+        result = isolated_filesystem_runner.invoke(read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code == 0
         mock_write.assert_called_once_with('123')
 
