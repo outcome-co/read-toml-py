@@ -3,9 +3,8 @@
 """A utility to read values from TOML files."""
 
 import sys
-from typing import IO, Optional, Union
-
 from pathlib import Path
+from typing import IO, Optional, Union
 
 import click
 from outcome.read_toml.lib import read  # noqa: WPS347
@@ -66,7 +65,11 @@ def read_toml_cli(path: IO[str], key: str, check_only: bool, github_actions: boo
 
 
 def read_toml(
-    path: Union[IO[str], str, Path], key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
+    path: Union[IO[str], str, Path],
+    key: str,
+    check_only: bool = False,
+    github_actions: bool = False,
+    default: Optional[str] = None,
 ):  # noqa: WPS216
     try:
         if isinstance(path, (str, Path)):

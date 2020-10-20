@@ -1,6 +1,5 @@
-from unittest.mock import Mock, call, patch, mock_open
-
 from pathlib import Path
+from unittest.mock import Mock, call, mock_open, patch
 
 import pytest
 import toml
@@ -21,7 +20,7 @@ def test_read_called_in_main():
 # read_toml can take multiple types for the path param
 # this test checks that whatever we pass in, we ultimately send
 # a file handle to the underlying read method
-@pytest.mark.parametrize('path,mocked_open', [('file.toml', mock_open()), (Path('file.toml'), mock_open()), ])
+@pytest.mark.parametrize('path,mocked_open', [('file.toml', mock_open()), (Path('file.toml'), mock_open())])
 def test_read_toml_path_types(path, mocked_open):
     with patch('outcome.read_toml.bin.read', autospec=True) as mocked_read:
         with patch('builtins.open', mocked_open, create=True):
