@@ -3,7 +3,7 @@
 """A utility to read values from TOML files."""
 
 import sys
-from typing import Optional
+from typing import IO, Optional
 
 import click
 from outcome.read_toml.lib import read  # noqa: WPS347
@@ -16,7 +16,7 @@ from outcome.utils import console
 @click.option('--default', help='The value to provide if the key is missing', required=False)
 @click.option('--check-only', help='If present, only checks if the key is present in the TOML file', is_flag=True, default=False)
 @click.option('--github-actions', help='If present, formats the output for github actions', is_flag=True, default=False)
-def read_toml_cli(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
+def read_toml_cli(path: IO[str], key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -64,7 +64,7 @@ def read_toml_cli(path, key: str, check_only: bool, github_actions: bool, defaul
 
 
 def read_toml(
-    path, key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
+    path: IO[str], key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
 ):  # noqa: WPS216
     try:
         value = read(path, key)
