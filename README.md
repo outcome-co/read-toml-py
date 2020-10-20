@@ -67,13 +67,6 @@ read-toml --path my_file.toml --key unknown_key --check-only
 # 0
 ```
 
-If you are using this lib inside Github Actions, you can format the output accordingly:
-
-```sh
-read-toml --path my_file.toml --key title --github-actions 
-# ::set-output name=title::"My TOML file"
-```
-
 ## Development
 
 Remember to run `./pre-commit.sh` when you clone the repository.

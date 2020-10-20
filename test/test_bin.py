@@ -43,17 +43,6 @@ def test_read_toml_path_file_handle():
         assert mocked_read.call_args.args[0] == mocked_open_handle
 
 
-@patch('outcome.read_toml.bin.console.write')
-class TestOutput:
-    def test_with_github(self, mock_write: Mock, output_case):
-        read_toml.output(output_case['key'], output_case['value'], github_actions=True)
-        mock_write.assert_called_once_with(output_case['github_value'])
-
-    def test_without_github(self, mock_write: Mock, output_case):
-        read_toml.output(output_case['key'], output_case['value'])
-        mock_write.assert_called_once_with(output_case['value'])
-
-
 @pytest.fixture
 def isolated_filesystem_runner(sample_toml):
     runner = CliRunner()
@@ -67,66 +56,63 @@ def isolated_filesystem_runner(sample_toml):
 
 class TestCommand:
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.return_value = '123'
         result = isolated_filesystem_runner.invoke(read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', '123', github_actions=False)
+        mock_write.assert_called_once_with('123')
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_only_check(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_only_check(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.return_value = '123'
         result = isolated_filesystem_runner.invoke(
             read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', check_value_present, github_actions=False)
+        mock_write.assert_called_once_with(check_value_present)
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_with_github_actions(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_with_github_actions(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.return_value = '123'
-        result = isolated_filesystem_runner.invoke(
-            read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key', '--github-actions'],
-        )
+        result = isolated_filesystem_runner.invoke(read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', '123', github_actions=True)
+        mock_write.assert_called_once_with('123')
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_failure(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    def test_call_failure(self, mock_read: Mock, isolated_filesystem_runner):
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key'])
         assert result.exit_code != 0
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_failure_only_check(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_failure_only_check(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(
             read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key', '--check-only'],
         )
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', check_value_missing, github_actions=False)
+        mock_write.assert_called_once_with(check_value_missing)
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_failure_default(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_failure_default(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(
             read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key', '--default', 'foo'],
         )
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', 'foo', github_actions=False)
+        mock_write.assert_called_once_with('foo')
 
     @patch('outcome.read_toml.bin.read', autospec=True)
-    @patch('outcome.read_toml.bin.output', autospec=True)
-    def test_call_failure_default_falsy_value(self, mock_output: Mock, mock_read: Mock, isolated_filesystem_runner):
+    @patch('outcome.read_toml.bin.console.write', autospec=True)
+    def test_call_failure_default_falsy_value(self, mock_write: Mock, mock_read: Mock, isolated_filesystem_runner):
         mock_read.side_effect = KeyError('my_key')
         result = isolated_filesystem_runner.invoke(
             read_toml.read_toml_cli, ['--path', './sample.toml', '--key', 'my_key', '--default', ''],
         )
         assert result.exit_code == 0
-        mock_output.assert_called_once_with('my_key', '', github_actions=False)
+        mock_write.assert_called_once_with('')
