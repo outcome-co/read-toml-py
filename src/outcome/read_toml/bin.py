@@ -16,7 +16,7 @@ from outcome.utils import console
 @click.option('--default', help='The value to provide if the key is missing', required=False)
 @click.option('--check-only', help='If present, only checks if the key is present in the TOML file', is_flag=True, default=False)
 @click.option('--github-actions', help='If present, formats the output for github actions', is_flag=True, default=False)
-def read_toml(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
+def read_toml_cli(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
     """Read the value specified by the path from a TOML file.
 
     The path parameter should be a '.' separated sequences of keys
@@ -60,21 +60,27 @@ def read_toml(path, key: str, check_only: bool, github_actions: bool, default: O
         github_actions (bool): If True, formats output for Github actions
         default (str, optional): If the key doesn't exist, print this value.
     """
+    read_toml(path, key, check_only, github_actions, default)
+
+
+def read_toml(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
     try:
-        output(key, read(path, key), check_only=check_only, github_actions=github_actions)
+        value = read(path, key)
+        if check_only:
+            value = '1'
     except KeyError as ex:
         if check_only:
-            console.write('0')
+            value = '0'
         elif default is not None:
-            console.write(default)
+            value = default
         else:
             fail(str(ex))
 
+    output(key, value, github_actions=github_actions)
 
-def output(key: str, value: str, check_only: bool = False, github_actions: bool = False):
-    if check_only:
-        console.write('1')
-    elif github_actions:
+
+def output(key: str, value: str, github_actions: bool = False):
+    if github_actions:
         action_key = key.replace('.', '_')
         console.write(f'::set-output name={action_key}::{value}')
     else:
@@ -87,4 +93,4 @@ def fail(key: str):  # pragma: no cover
 
 
 def main():
-    read_toml()
+    read_toml_cli()
