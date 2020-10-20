@@ -12,7 +12,7 @@ documentation = "https://github.com/outcome-co/read-toml-py#README"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.8.5"
 click = "^7.1.2"
 toml = "^0.10.1"
 outcome-utils = "^3.3.0"
