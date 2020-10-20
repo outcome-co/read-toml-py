@@ -63,7 +63,9 @@ def read_toml_cli(path, key: str, check_only: bool, github_actions: bool, defaul
     read_toml(path, key, check_only, github_actions, default)
 
 
-def read_toml(path, key: str, check_only: bool, github_actions: bool, default: Optional[str] = None):  # noqa: WPS216
+def read_toml(
+    path, key: str, check_only: bool = False, github_actions: bool = False, default: Optional[str] = None,
+):  # noqa: WPS216
     try:
         value = read(path, key)
         if check_only:
