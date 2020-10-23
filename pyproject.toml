@@ -18,7 +18,7 @@ toml = "^0.10.1"
 outcome-utils = "^4.12.5"
 
 [tool.poetry.dev-dependencies]
-outcome-devkit = "^3.2.0"
+outcome-devkit = "^3.2.2"
 
 [tool.poetry.scripts]
 read-toml = 'outcome.read_toml.bin:main'
