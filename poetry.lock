@@ -724,11 +724,11 @@ python-versions = "*"
 
 [[package]]
 name = "outcome-devkit"
-version = "3.2.0"
+version = "3.2.3"
 description = "A package containing common dev dependencies for python projects."
 category = "dev"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = ">=3.8.5,<3.9.0"
 
 [package.dependencies]
 black = ">=19.10b0,<20.0"
@@ -749,7 +749,7 @@ isort = ">=4.3.21,<5.0.0"
 mock = ">=4.0.2,<5.0.0"
 mypy = ">=0.780,<0.791"
 outcome-utils = ">=4.11.0,<5.0.0"
-pact-python = "1.2.7"
+pact-python = "1.2.9"
 pdbpp = ">=0.10.2,<0.11.0"
 pre-commit = ">=2.2.0,<3.0.0"
 pytest = ">=5.3.5,<7.0.0"
@@ -790,7 +790,7 @@ six = "*"
 
 [[package]]
 name = "pact-python"
-version = "1.2.7"
+version = "1.2.9"
 description = "Tools for creating and verifying consumer driven contracts using the Pact framework."
 category = "dev"
 optional = false
@@ -1271,7 +1271,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.8.5"
-content-hash = "b3e819190a715bb323014bcd37af73782c775f12b421ae6bf312554a857ab64d"
+content-hash = "3756a4feb867e26b305e676b825c8935503afc86aaa2a8018c924d14f5efbb46"
 
 [metadata.files]
 appdirs = [
@@ -1605,8 +1605,8 @@ nodeenv = [
     {file = "nodeenv-1.5.0.tar.gz", hash = "sha256:ab45090ae383b716c4ef89e690c41ff8c2b257b85b309f01f3654df3d084bd7c"},
 ]
 outcome-devkit = [
-    {file = "outcome-devkit-3.2.0.tar.gz", hash = "sha256:407a068db48b262dd64636151df7c79bf5eab32aa391a1cbd606bb63ee4a9c69"},
-    {file = "outcome_devkit-3.2.0-py3-none-any.whl", hash = "sha256:a73525a62a99c1bf614f812286b0d78b4aa730774f33aa163ad4e7ab445ef149"},
+    {file = "outcome-devkit-3.2.3.tar.gz", hash = "sha256:5b12540e91262f1684ce1e1f4b741ad990de944a692e4e84e1124c15a79dbab7"},
+    {file = "outcome_devkit-3.2.3-py3-none-any.whl", hash = "sha256:a0a2dea0ef60dda7f041691f405f8ab75c6e7ec9aeead470b247c7f6fe50daee"},
 ]
 outcome-utils = [
     {file = "outcome-utils-4.12.6.tar.gz", hash = "sha256:248ffd2747566eeb34b5e575a919963046efe6f21643542f8b262bc6f18ce7f6"},
@@ -1617,7 +1617,7 @@ packaging = [
     {file = "packaging-20.4.tar.gz", hash = "sha256:4357f74f47b9c12db93624a82154e9b120fa8293699949152b22065d556079f8"},
 ]
 pact-python = [
-    {file = "pact-python-1.2.7.tar.gz", hash = "sha256:2bdfed444ae965013505c661b3cb5fd342b1e9530566943b0a50a6d3f5dafca4"},
+    {file = "pact-python-1.2.9.tar.gz", hash = "sha256:3d6bb572eeda788b27b9252c32ff4dac2b67c9554fc88ed325bbc5ca9fdbe434"},
 ]
 parso = [
     {file = "parso-0.7.1-py2.py3-none-any.whl", hash = "sha256:97218d9159b2520ff45eb78028ba8b50d2bc61dcc062a9682666f2dc4bd331ea"},
@@ -1821,6 +1821,12 @@ typed-ast = [
     {file = "typed_ast-1.4.1-cp38-cp38-win32.whl", hash = "sha256:715ff2f2df46121071622063fc7543d9b1fd19ebfc4f5c8895af64a77a8c852c"},
     {file = "typed_ast-1.4.1-cp38-cp38-win_amd64.whl", hash = "sha256:fc0fea399acb12edbf8a628ba8d2312f583bdbdb3335635db062fa98cf71fca4"},
     {file = "typed_ast-1.4.1-cp39-cp39-macosx_10_15_x86_64.whl", hash = "sha256:d43943ef777f9a1c42bf4e552ba23ac77a6351de620aa9acf64ad54933ad4d34"},
+    {file = "typed_ast-1.4.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:92c325624e304ebf0e025d1224b77dd4e6393f18aab8d829b5b7e04afe9b7a2c"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux1_i686.whl", hash = "sha256:d648b8e3bf2fe648745c8ffcee3db3ff903d0817a01a12dd6a6ea7a8f4889072"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux1_x86_64.whl", hash = "sha256:fac11badff8313e23717f3dada86a15389d0708275bddf766cca67a84ead3e91"},
+    {file = "typed_ast-1.4.1-cp39-cp39-manylinux2014_aarch64.whl", hash = "sha256:0d8110d78a5736e16e26213114a38ca35cb15b6515d535413b090bd50951556d"},
+    {file = "typed_ast-1.4.1-cp39-cp39-win32.whl", hash = "sha256:b52ccf7cfe4ce2a1064b18594381bccf4179c2ecf7f513134ec2f993dd4ab395"},
+    {file = "typed_ast-1.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:3742b32cf1c6ef124d57f95be609c473d7ec4c14d0090e5a5e05a15269fb4d0c"},
     {file = "typed_ast-1.4.1.tar.gz", hash = "sha256:8c8aaad94455178e3187ab22c8b01a3837f8ee50e09cf31f1ba129eb293ec30b"},
 ]
 typing-extensions = [
