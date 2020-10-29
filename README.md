@@ -1,5 +1,5 @@
 # read-toml-py
-![ci-badge](https://github.com/outcome-co/read-toml-py/workflows/Release/badge.svg?branch=v2.0.1) ![version-badge](https://img.shields.io/badge/version-2.0.1-brightgreen)
+![ci-badge](https://github.com/outcome-co/read-toml-py/workflows/Release/badge.svg?branch=v2.0.2) ![version-badge](https://img.shields.io/badge/version-2.0.2-brightgreen)
 
 A small utility to read keys from TOML files.
 
