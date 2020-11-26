@@ -758,11 +758,11 @@ wemake-python-styleguide = ">=0.14.0,<0.15.0"
 
 [[package]]
 name = "outcome-utils"
-version = "4.14.1"
+version = "4.18.2"
 description = "A collection of python utils."
 category = "main"
 optional = false
-python-versions = ">=3.8.5,<3.9.0"
+python-versions = ">=3.8,<3.9"
 
 [package.dependencies]
 asgiref = ">=3.2.10,<4.0.0"
@@ -772,6 +772,7 @@ colored = ">=1.4.2,<2.0.0"
 jinja2 = ">=2.11.2,<3.0.0"
 makefun = ">=1.9.3,<2.0.0"
 pyfakefs = ">=4.1.0,<5.0.0"
+python-dotenv = ">=0.15.0,<0.16.0"
 requests = ">=2.24.0,<3.0.0"
 rich = ">=6.2,<10.0"
 semver = ">=2.10.2,<3.0.0"
@@ -1034,6 +1035,17 @@ pytest = ">=5.4.0"
 
 [package.extras]
 testing = ["async-generator (>=1.3)", "coverage", "hypothesis (>=5.7.1)"]
+
+[[package]]
+name = "python-dotenv"
+version = "0.15.0"
+description = "Add .env support to your django/flask apps in development and deployments"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+cli = ["click (>=5.0)"]
 
 [[package]]
 name = "pyyaml"
@@ -1641,8 +1653,8 @@ outcome-devkit = [
     {file = "outcome_devkit-3.3.7-py3-none-any.whl", hash = "sha256:38152f9259276ddd73cfe50c1df7021728b403a27fad5c536ffc146c8f304a82"},
 ]
 outcome-utils = [
-    {file = "outcome-utils-4.14.1.tar.gz", hash = "sha256:523f3bc3b1026132bdb5ca9a0940b66c27e35d454027e20e082f21dde3305fef"},
-    {file = "outcome_utils-4.14.1-py3-none-any.whl", hash = "sha256:491bbda9cff5259ef85b5a473b8a2b573c5d1e19374ea2200e5fc0d5ea1c8542"},
+    {file = "outcome-utils-4.18.2.tar.gz", hash = "sha256:6b16b28ab30af2c1f94f712960224c32f8c097ec17d4c8fcb9d19f03865d78f5"},
+    {file = "outcome_utils-4.18.2-py3-none-any.whl", hash = "sha256:a9250400495fa46c8c18e8e4ebf01436d0c84d131b9b66e367a2dc65e1a38088"},
 ]
 packaging = [
     {file = "packaging-20.4-py2.py3-none-any.whl", hash = "sha256:998416ba6962ae7fbd6596850b80e17859a5753ba17c32284f67bfff33784181"},
@@ -1738,6 +1750,10 @@ pytest-asyncio = [
     {file = "pytest-asyncio-0.14.0.tar.gz", hash = "sha256:9882c0c6b24429449f5f969a5158b528f39bde47dc32e85b9f0403965017e700"},
     {file = "pytest_asyncio-0.14.0-py3-none-any.whl", hash = "sha256:2eae1e34f6c68fc0a9dc12d4bea190483843ff4708d24277c41568d6b6044f1d"},
 ]
+python-dotenv = [
+    {file = "python-dotenv-0.15.0.tar.gz", hash = "sha256:587825ed60b1711daea4832cf37524dfd404325b7db5e25ebe88c495c9f807a0"},
+    {file = "python_dotenv-0.15.0-py2.py3-none-any.whl", hash = "sha256:0c8d1b80d1a1e91717ea7d526178e3882732420b03f08afea0406db6402e220e"},
+]
 pyyaml = [
     {file = "PyYAML-5.3.1-cp27-cp27m-win32.whl", hash = "sha256:74809a57b329d6cc0fdccee6318f44b9b8649961fa73144a98735b0aaf029f1f"},
     {file = "PyYAML-5.3.1-cp27-cp27m-win_amd64.whl", hash = "sha256:240097ff019d7c70a4922b6869d8a86407758333f02203e0fc6ff79c5dcede76"},
@@ -1749,6 +1765,8 @@ pyyaml = [
     {file = "PyYAML-5.3.1-cp37-cp37m-win_amd64.whl", hash = "sha256:73f099454b799e05e5ab51423c7bcf361c58d3206fa7b0d555426b1f4d9a3eaf"},
     {file = "PyYAML-5.3.1-cp38-cp38-win32.whl", hash = "sha256:06a0d7ba600ce0b2d2fe2e78453a470b5a6e000a985dd4a4e54e436cc36b0e97"},
     {file = "PyYAML-5.3.1-cp38-cp38-win_amd64.whl", hash = "sha256:95f71d2af0ff4227885f7a6605c37fd53d3a106fcab511b8860ecca9fcf400ee"},
+    {file = "PyYAML-5.3.1-cp39-cp39-win32.whl", hash = "sha256:ad9c67312c84def58f3c04504727ca879cb0013b2517c85a9a253f0cb6380c0a"},
+    {file = "PyYAML-5.3.1-cp39-cp39-win_amd64.whl", hash = "sha256:6034f55dab5fea9e53f436aa68fa3ace2634918e8b5994d82f3621c04ff5ed2e"},
     {file = "PyYAML-5.3.1.tar.gz", hash = "sha256:b8eac752c5e14d3eca0e6dd9199cd627518cb5ec06add0de9d32baeee6fe645d"},
 ]
 regex = [
