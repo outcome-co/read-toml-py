@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import MutableMapping, Union, cast
 from unittest.mock import Mock, call, mock_open, patch
 
 import pytest
@@ -10,8 +11,12 @@ check_value_present = '1'
 check_value_missing = '0'
 
 
+class MockedReadTomlCLI(Mock):
+    read: Mock
+
+
 def test_read_called_in_main():
-    m = Mock()
+    m = cast(MockedReadTomlCLI, Mock())
     with patch('outcome.read_toml.bin.read_toml_cli', new=m.read):
         read_toml.main()
         assert m.mock_calls == [call.read()]
@@ -21,8 +26,8 @@ def test_read_called_in_main():
 # this test checks that whatever we pass in, we ultimately send
 # a file handle to the underlying read method
 @pytest.mark.parametrize('path,mocked_open', [('file.toml', mock_open()), (Path('file.toml'), mock_open())])
-def test_read_toml_path_types(path, mocked_open):
-    with patch('outcome.read_toml.bin.read', autospec=True) as mocked_read:
+def test_read_toml_path_types(path: Union[Path, str], mocked_open: Mock):
+    with patch('outcome.read_toml.lib.read', autospec=True) as mocked_read:
         with patch('builtins.open', mocked_open, create=True):
             mocked_read.return_value = 'value'
 
@@ -44,7 +49,7 @@ def test_read_toml_path_file_handle():
 
 
 @pytest.fixture
-def isolated_filesystem_runner(sample_toml):
+def isolated_filesystem_runner(sample_toml: MutableMapping[str, object]):
     runner = CliRunner()
 
     with runner.isolated_filesystem():
