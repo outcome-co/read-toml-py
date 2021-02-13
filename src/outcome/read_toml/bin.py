@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import IO, Optional, Union
 
 import click
-from outcome.read_toml.lib import read  # noqa: WPS347
+from outcome.read_toml.lib import read, read_from_file  # noqa: WPS347
 from outcome.utils import console
 
 
@@ -67,8 +67,7 @@ def read_toml(
 ):
     try:
         if isinstance(path, (str, Path)):
-            with open(path, 'r') as path_handle:
-                value = read(path_handle, key)
+            value = read_from_file(path, key)
         else:
             value = read(path, key)
 

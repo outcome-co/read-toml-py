@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any
 
 import pytest
 import toml
@@ -26,10 +27,10 @@ def output_cases():
 
 
 @pytest.fixture(params=read_cases())
-def read_path_case(request):
+def read_path_case(request: Any) -> object:
     return request.param
 
 
 @pytest.fixture(params=output_cases())
-def output_case(request):
+def output_case(request: Any) -> object:
     return request.param
