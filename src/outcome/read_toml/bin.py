@@ -8,7 +8,6 @@ from typing import IO, Optional, Union
 
 import click
 from outcome.read_toml.lib import read, read_from_file  # noqa: WPS347
-from outcome.utils import console
 
 
 @click.command()
@@ -59,7 +58,7 @@ def read_toml_cli(path: IO[str], key: str, check_only: bool, default: Optional[s
         check_only (bool): If True, only checks if key exists
         default (str, optional): If the key doesn't exist, print this value.
     """
-    console.write(read_toml(path, key, check_only, default))
+    click.echo(read_toml(path, key, check_only, default))
 
 
 def read_toml(
@@ -85,7 +84,7 @@ def read_toml(
 
 
 def fail(key: str):  # pragma: no cover
-    console.error(f'Invalid key: {key}')
+    click.echo(f'Invalid key: {key}', err=True)
     sys.exit(-1)
 
 
