@@ -62,17 +62,19 @@ def read_key(node: MutableMapping[str, object], key: str) -> object:
             # This should always be a list when an index is specified
             raise KeyError
 
-        return val[index]
+        return cast(object, val[index])
 
     value = node[key]
 
     # If no index is specified but the object is a list, we assume index is O
     # We have to cast as pylance doesn't like list[unknown]
-    if isinstance(value, list) and len(cast(List[object], value)) == 1:
-        return value[0]
+    if isinstance(value, list):
+        value_as_list = cast(List[object], value)
+        if len(value_as_list) == 1:
+            return value_as_list[0]
 
     # This will also throw a KeyError if key isn't available in node
-    return value
+    return cast(object, value)
 
 
 def get_key_and_index(key: str) -> Optional[Tuple[str, int]]:
