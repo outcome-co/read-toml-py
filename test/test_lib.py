@@ -5,6 +5,8 @@ from unittest.mock import Mock, patch
 import pytest
 from outcome.read_toml import lib as read_toml
 
+from .types import ReadCase  # noqa: WPS300
+
 
 class TestGetKeyAndIndex:
     def test_get_non_index(self):
@@ -22,7 +24,7 @@ class TestGetKeyAndIndex:
 
 
 class TestReadPath:
-    def test_read_case(self, sample_toml: MutableMapping[str, object], read_path_case: object):
+    def test_read_case(self, sample_toml: MutableMapping[str, object], read_path_case: ReadCase):
         assert isinstance(read_path_case, dict)
 
         key = read_path_case['key']

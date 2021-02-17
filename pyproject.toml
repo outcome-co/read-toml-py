@@ -12,12 +12,13 @@ documentation = "https://github.com/outcome-co/read-toml-py#README"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8.5"
+python = "^3.8.6"
 click = "^7.1.2"
 toml = "^0.10.1"
 
-# [tool.poetry.dev-dependencies]
-# outcome-devkit = "^3.3.7"
+[tool.poetry.dev-dependencies]
+outcome-devkit = "^5.1.0"
+pydantic = "^1.7.3"
 
 [tool.poetry.scripts]
 read-toml = 'outcome.read_toml.bin:main'
@@ -29,7 +30,6 @@ source = ['src/outcome/read_toml']
 omit = [
    "test/*"
 ]
-parallel = true
 
 [tool.coverage.report]
 fail_under = 100
